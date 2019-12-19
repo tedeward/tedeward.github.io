@@ -1,0 +1,22 @@
+name: "my-website"
+navbar:
+  title: "My Website"
+  left:
+    - text: "Home"
+      href: index.html
+    - text: "Guided Exercise 1"
+      href: guided1.html
+    - text: "Guided Exercise 2"
+      href: ge02.html
+    - text: "Guided Exercise 3"
+      href: ge03.html
+    - text: "Guided Exercise 4"
+      href: ge04.html
+    - text: "Final Project"
+      href: finalproj.html
+output:
+  html_document:
+    theme: cosmo
+    highlight: tango
+    include:
+      after_body: footer.Rhtml

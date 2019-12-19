@@ -1,0 +1,17 @@
+library(tidyverse) #Loads in tidyverse package
+monthly_temps <- read_csv("monthly_global_land_and_ocean_temperature_anomalies.csv") #Loads in data
+library(lubridate) #Loads in lubridate package
+monthly_temps <- mutate(monthly_temps, date = ymd(YearMonth, truncated=1)) #Converts the YearMonth observation into a date format and stores it as the variable "date"
+monthly_temps <- mutate(monthly_temps,
+                        year=year(date),
+                        month=month(date, label = T)) #Reads the "date" observation we just created and parses both the year and month into seperate variables called "year" and "month"
+monthly_temps <- rename(monthly_temps, temperature_anomaly = Value) #Renames monthly_temps$Value as monthly_temps$temperature_anomaly
+monthly_temps <- select(monthly_temps, -YearMonth) #Removes monthly_temps$YearMonth which is no longer needed becasue we have created seperate year and month variables.
+
+ggplot(monthly_temps, aes(x=month, y=temperature_anomaly))+ #Forms lineplot
+  geom_line(aes(group=year,color=temperature_anomaly), show.legend = FALSE)+
+  scale_color_gradientn(colors=rev(rainbow(2)))+
+  labs(title="Historical Temperature Anomalies \n Since 1880 by Month", y="Temperature Anomaly in Degrees Celius", x="")+
+  theme_minimal()
+
+save(monthly_temps, file="climate_data.RData") #Saves modified data

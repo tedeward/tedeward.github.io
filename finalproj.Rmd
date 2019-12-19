@@ -1,0 +1,35 @@
+---
+title: "Final Project"
+author: "Ted Getselman"
+date: "12/14/2019"
+output: html_document
+---
+# Purpose
+For my final project, I created a geographical bubbleplot detailing "corsi" statistics of several Philadelphia Flyers regular seasons games. I chose "corsi" statistics, which are described as all shots on target, including blocks, misses, shots on goal, and goals because it is known to be as one of the best predictors of future performance, as seen in this article [here](https://hockey-graphs.com/2017/12/01/behind-the-numbers-what-makes-a-stat-good/). In addition, the article also mentions "expected goals"(xG), which is a statistic like corsi that adjusts for various factors such as shot distance, angle, type, among other things. The aforementioned article claims "xG has the same predictive power at the 20-game mark as Corsi (CF%) [...] but proves to be a far more superior predictor of future goals past that mark." As a result, I wanted to build a model that reconciled the predictive power of these two statistics. Therefore, I built a model where each data point is a "corsi" observation, but the color and shape of the point can provide more information about the xG of the shot.
+
+
+# Data
+Retrieving data that includes shot location is not easy to come by. The only reliable source is the NHL, because they are the only ones with access to puck-tracking data. They provide this data publicly in the form of an HTML report for each game. While there is no central database for these reports, they are accessible via a link such as: http://www.nhl.com/scores/htmlreports/20192020/GSXXXXXX.HTM. Only the 6 X's would be replaced by that games unique identification number, which can be found by navigating to https://www.nhl.com/scores and clicking on the game you would like to extract data from. Working with HTML data is not an easy task, but luckily, EvolvingWild has created a data scraper specifically for these reports. I used this scraper, which can be found [here](https://github.com/evolvingwild/evolving-hockey/blob/master/EH_scrape_functions.R) to extract the data. Once you have the unique identifiers of all the games you would like to assess, the numbers are listed into the scraper code and then the scraper extracts them into your work environment. I then wrote the subsequent data into a CSV file for future use. 
+
+# Manipulation
+In hockey, there are many different scenarios a game could find itself in. There are situations where each team will have 5 players on the ice, or one team can have a "powerplay" in which their opponent is forced to play with only 4 players. I manipulated my data to only include data from 5v5, 5v4, and 4v5 scenarios to remove and potential outliers stemming 6v5, 6v4, 4v3, and 3v3 data. I did this using the filter function and then piped the filtered observations into a new variable. I also filtered my data to include only shots on goal, goals, blocks, and misses because these are the important observations when assessing "corsi". I achieved this using the select function to select distance, shot type, etc. for each observation in question and then piped these observations into an updated variable. Finally, I combined all data (which was separated by event detail) using the rbind function, which essentially stacked all the data on top of each other by row.
+
+# The GGPlot
+To form a ggplot I first load in an image of an ice hockey rink using the ggpubr and png packages. I then layer the bubbleplot over this image with the following aesthetic mappings: the x and y values of the coordinate of the observations come directly from the data, while the color and shape are based on the "event team" and "event detail" variables, respectively. I assigned specific colors to each team based on their team colors, and I assigned specific shapes to shot types based on the popularity of the shot (e.g.: since the wrist shot is most popular, it is represented by a circle). I then set the size of the mappings to a reasonable value, and center the image of the rink by scaling the plot to the size of a standard rink. Since hockey rinks are 200x85 feet in dimensions, the scale of the x and y axes are (-100, 100) and (-42.5, 42.5), respectively.
+
+
+```{r graph, echo=FALSE, out.width='100%'}
+knitr::include_app("https://getselman.shinyapps.io/FinalProject/")
+```
+
+# Results
+Even with a small sample size of games, our model shows what we would generally expect from shot data. A heavy emphasis of shots take place in the "slot" area. This is the region of the ice between the two faceoff dots. Literature (and common sense) has shown that shots in these areas have a higher probability of resulting in goals compared to other shots. Therefore, it also makes sense that the blocks and misses are more randomly scattered while goals are more condensed in the slot area. In addition, more powerful shots such as slapshots appear to occur more often at a significant distance from the net, while weaker shots such as backhand shots occur closer to the net. Finally, defenseman players (for example, Phillipe Myers) show a tendency to prefer slapshots at a long distance compared to forwards (such as Claude Giroux) who prefer wrist shots closer to the net. All of these findings align with general expectations.
+
+In terms of unique findings that resulted from this model, the comparison in the Flyers shot performance in different periods was telling. As seen in the figure below, when compared with other teams the Philadelphia Flyers (PHI) have generally performed the worst in the first and third periods of a game, in terms of xG metrics.
+
+![NHL Teams Performance Over Game Time](https://pbs.twimg.com/media/EMHzouQWwAEZTPW?format=png&name=large)
+
+I  assessed this using my app by filtering for all shot types taken by Flyers players, and then compared the results of each period. I found that filtering for shots in only the third period reveals a noticeable amount of whitespace, confirming the suspicion that the Flyers generally perform worse in the final period of play. Although, this is a small sample size of games so the difference might not be statistically significant.
+
+
+

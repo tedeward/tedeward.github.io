@@ -1,0 +1,6 @@
+---
+title: "My Website"
+---
+
+This website is a space to view the data analysis work of Ted Getselman. The projects shown were completed as part of Professor Meyer's Data Visualization and Graphics course at Georgetown Univeristy.
+

@@ -1,0 +1,25 @@
+---
+title: "Guided Exercise 1"
+author: "Ted Getselman"
+date: "9/6/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Data Entry
+
+```{r data}
+jmen <- read.table("jmen.txt", header = TRUE)
+```
+
+##Imitation Graph
+
+```{r graph}
+hair_table<- table(jmen$Hair)
+barplot(hair_table, col = c("Black", "Gold", "Lightsalmon4", "Red"), main= "Hair Color of Sampled JMen", xlab = "Hair Colors", ylab= "Number of Men", names.arg = c("Black", "Blond(e)", "Brown", "Red"))
+```
+
+I was able to imitate the graph nearly identically apart from the colors, which were difficult to discern under R's color scheme.
