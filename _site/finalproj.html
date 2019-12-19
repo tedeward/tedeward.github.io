@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Ted Getselman" />
+
+<meta name="date" content="2019-12-14" />
+
+<title>Final Project</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">My Website</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="guided1.html">Guided Exercise 1</a>
+</li>
+<li>
+  <a href="ge02.html">Guided Exercise 2</a>
+</li>
+<li>
+  <a href="ge03.html">Guided Exercise 3</a>
+</li>
+<li>
+  <a href="ge04.html">Guided Exercise 4</a>
+</li>
+<li>
+  <a href="finalproj.html">Final Project</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Final Project</h1>
+<h4 class="author">Ted Getselman</h4>
+<h4 class="date">12/14/2019</h4>
+
+</div>
+
+
+<div id="purpose" class="section level1">
+<h1>Purpose</h1>
+<p>For my final project, I created a geographical bubbleplot detailing “corsi” statistics of several Philadelphia Flyers regular seasons games. I chose “corsi” statistics, which are described as all shots on target, including blocks, misses, shots on goal, and goals because it is known to be as one of the best predictors of future performance, as seen in this article <a href="https://hockey-graphs.com/2017/12/01/behind-the-numbers-what-makes-a-stat-good/">here</a>. In addition, the article also mentions “expected goals”(xG), which is a statistic like corsi that adjusts for various factors such as shot distance, angle, type, among other things. The aforementioned article claims “xG has the same predictive power at the 20-game mark as Corsi (CF%) […] but proves to be a far more superior predictor of future goals past that mark.” As a result, I wanted to build a model that reconciled the predictive power of these two statistics. Therefore, I built a model where each data point is a “corsi” observation, but the color and shape of the point can provide more information about the xG of the shot.</p>
+</div>
+<div id="data" class="section level1">
+<h1>Data</h1>
+<p>Retrieving data that includes shot location is not easy to come by. The only reliable source is the NHL, because they are the only ones with access to puck-tracking data. They provide this data publicly in the form of an HTML report for each game. While there is no central database for these reports, they are accessible via a link such as: <a href="http://www.nhl.com/scores/htmlreports/20192020/GSXXXXXX.HTM" class="uri">http://www.nhl.com/scores/htmlreports/20192020/GSXXXXXX.HTM</a>. Only the 6 X’s would be replaced by that games unique identification number, which can be found by navigating to <a href="https://www.nhl.com/scores" class="uri">https://www.nhl.com/scores</a> and clicking on the game you would like to extract data from. Working with HTML data is not an easy task, but luckily, EvolvingWild has created a data scraper specifically for these reports. I used this scraper, which can be found <a href="https://github.com/evolvingwild/evolving-hockey/blob/master/EH_scrape_functions.R">here</a> to extract the data. Once you have the unique identifiers of all the games you would like to assess, the numbers are listed into the scraper code and then the scraper extracts them into your work environment. I then wrote the subsequent data into a CSV file for future use.</p>
+</div>
+<div id="manipulation" class="section level1">
+<h1>Manipulation</h1>
+<p>In hockey, there are many different scenarios a game could find itself in. There are situations where each team will have 5 players on the ice, or one team can have a “powerplay” in which their opponent is forced to play with only 4 players. I manipulated my data to only include data from 5v5, 5v4, and 4v5 scenarios to remove and potential outliers stemming 6v5, 6v4, 4v3, and 3v3 data. I did this using the filter function and then piped the filtered observations into a new variable. I also filtered my data to include only shots on goal, goals, blocks, and misses because these are the important observations when assessing “corsi”. I achieved this using the select function to select distance, shot type, etc. for each observation in question and then piped these observations into an updated variable. Finally, I combined all data (which was separated by event detail) using the rbind function, which essentially stacked all the data on top of each other by row.</p>
+</div>
+<div id="the-ggplot" class="section level1">
+<h1>The GGPlot</h1>
+<p>To form a ggplot I first load in an image of an ice hockey rink using the ggpubr and png packages. I then layer the bubbleplot over this image with the following aesthetic mappings: the x and y values of the coordinate of the observations come directly from the data, while the color and shape are based on the “event team” and “event detail” variables, respectively. I assigned specific colors to each team based on their team colors, and I assigned specific shapes to shot types based on the popularity of the shot (e.g.: since the wrist shot is most popular, it is represented by a circle). I then set the size of the mappings to a reasonable value, and center the image of the rink by scaling the plot to the size of a standard rink. Since hockey rinks are 200x85 feet in dimensions, the scale of the x and y axes are (-100, 100) and (-42.5, 42.5), respectively.</p>
+<iframe src="https://getselman.shinyapps.io/FinalProject/?showcase=0" width="100%" height="400px">
+</iframe>
+</div>
+<div id="results" class="section level1">
+<h1>Results</h1>
+<p>Even with a small sample size of games, our model shows what we would generally expect from shot data. A heavy emphasis of shots take place in the “slot” area. This is the region of the ice between the two faceoff dots. Literature (and common sense) has shown that shots in these areas have a higher probability of resulting in goals compared to other shots. Therefore, it also makes sense that the blocks and misses are more randomly scattered while goals are more condensed in the slot area. In addition, more powerful shots such as slapshots appear to occur more often at a significant distance from the net, while weaker shots such as backhand shots occur closer to the net. Finally, defenseman players (for example, Phillipe Myers) show a tendency to prefer slapshots at a long distance compared to forwards (such as Claude Giroux) who prefer wrist shots closer to the net. All of these findings align with general expectations.</p>
+<p>In terms of unique findings that resulted from this model, the comparison in the Flyers shot performance in different periods was telling. As seen in the figure below, when compared with other teams the Philadelphia Flyers (PHI) have generally performed the worst in the first and third periods of a game, in terms of xG metrics.</p>
+<div class="figure">
+<img src="https://pbs.twimg.com/media/EMHzouQWwAEZTPW?format=png&amp;name=large" alt="NHL Teams Performance Over Game Time" />
+<p class="caption">NHL Teams Performance Over Game Time</p>
+</div>
+<p>I assessed this using my app by filtering for all shot types taken by Flyers players, and then compared the results of each period. I found that filtering for shots in only the third period reveals a noticeable amount of whitespace, confirming the suspicion that the Flyers generally perform worse in the final period of play. Although, this is a small sample size of games so the difference might not be statistically significant.</p>
+</div>
+
+<p>For inquiries email Ted Getselman at tg614@georgetown.edu.</p>
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
